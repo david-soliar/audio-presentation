@@ -24,26 +24,29 @@ print("Typ kompresie: {}".format(kompresia))
 
 vzorky_byte = audio.readframes(pocet_vzoriek)
 
-#________________________________________________________________
+# ________________________________________________________________
 
 signaly = list()
 for i in range(int(len(vzorky_byte)/bajty)):
-    signaly.append(int.from_bytes(vzorky_byte[:bajty], byteorder="little", signed=True))
+    signaly.append(int.from_bytes(vzorky_byte[:bajty],
+                                  byteorder="little",
+                                  signed=True))
     vzorky_byte = vzorky_byte[bajty:]
 
-#________________________________________________________________
+# ________________________________________________________________
 
-canvas = tkinter.Canvas(height = 800, width = 800, background = "black")
+canvas = tkinter.Canvas(height=800, width=800, background="black")
 canvas.pack()
 
-canvas.create_line(0,400,800,400, fill = "red")
+canvas.create_line(0, 400, 800, 400, fill="red")
 
 posunutie_x = 800/pocet_vzoriek
 velkost_y = 400/(2**(bajty*8)/2)
 
 x = 0
 for signal in signaly:
-    canvas.create_line(x,400,x,400+signal*velkost_y, fill = "dark blue")
+    canvas.create_line(x, 400, x, 400+signal*velkost_y,
+                       fill="dark blue")
     x += posunutie_x
 
 canvas.update()
